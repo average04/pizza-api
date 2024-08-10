@@ -3,3 +3,7 @@ Pizza/Pizza.API/obj/
 Pizza/Pizza.Application/obj/
 Pizza/Pizza.Domain/obj/
 Pizza/Pizza.Infrastructure/obj/
+Pizza/Pizza.API/bin/
+Pizza/Pizza.Application/bin/
+Pizza/Pizza.Infrastructure/bin/
+Pizza/Pizza.Domain/bin/
