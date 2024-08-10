@@ -31,21 +31,9 @@ namespace Pizza.Infrastructure.Data.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<DateTime?>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("longtext");
-
                     b.Property<DateOnly>("Date")
                         .HasColumnType("date")
                         .HasColumnOrder(1);
-
-                    b.Property<DateTime?>("LastModified")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("LastModifiedBy")
-                        .HasColumnType("longtext");
 
                     b.Property<TimeOnly>("Time")
                         .HasColumnType("time(6)")
@@ -64,18 +52,6 @@ namespace Pizza.Infrastructure.Data.Migrations
                         .HasColumnOrder(0);
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<DateTime?>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime?>("LastModified")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("LastModifiedBy")
-                        .HasColumnType("longtext");
 
                     b.Property<long>("OrderId")
                         .HasColumnType("bigint")
@@ -104,18 +80,6 @@ namespace Pizza.Infrastructure.Data.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("NVARCHAR(255)")
                         .HasColumnOrder(0);
-
-                    b.Property<DateTime?>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime?>("LastModified")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("LastModifiedBy")
-                        .HasColumnType("longtext");
 
                     b.Property<string>("PizzaTypeId")
                         .IsRequired()
@@ -148,22 +112,10 @@ namespace Pizza.Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<DateTime?>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("longtext");
-
                     b.Property<string>("Ingredients")
                         .IsRequired()
                         .HasColumnType("TEXT")
                         .HasColumnOrder(2);
-
-                    b.Property<DateTime?>("LastModified")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("LastModifiedBy")
-                        .HasColumnType("longtext");
 
                     b.Property<string>("Name")
                         .IsRequired()
