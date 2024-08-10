@@ -1,6 +1,6 @@
-﻿
+﻿using EFCore.BulkExtensions;
 
-namespace Pizza.Application.Service.Order;
+namespace Pizza.Application.Service;
 
 public class UploadOrderHandler : IRequestHandler<UploadOrderRequest, Unit>
 {
@@ -26,7 +26,9 @@ public class UploadOrderHandler : IRequestHandler<UploadOrderRequest, Unit>
             orders = csv.GetRecords<OrderCsv>().Select(o => o.ToDomainModel()).ToList();
         }
 
-        await _dbContext.BulkInsertEntitiesAsync(orders);
+        await _dbContext.BulkInsertOrUpdateEntitiesAsync(orders);
+        //_dbContext.Orders.UpdateRange(orders);
+        //await _dbContext.SaveChangesAsync(cancellationToken);
 
         return Unit.Value;
     }

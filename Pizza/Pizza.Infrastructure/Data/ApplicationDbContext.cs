@@ -12,10 +12,9 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<Domain.Pizza> Pizzas => Set<Domain.Pizza>();
     public DbSet<PizzaType> PizzaTypes => Set<PizzaType>();
 
-    public async Task BulkInsertEntitiesAsync<T>(IEnumerable<T> entities) where T : class
+    public async Task BulkInsertOrUpdateEntitiesAsync<TEntity>(IEnumerable<TEntity> entities) where TEntity : class
     {
-        // Ensure the entities are in a list
-        await this.BulkInsertAsync(entities.ToList());
+        await this.BulkInsertOrUpdateAsync(entities.ToList());
     }
 
     public Task<int> SaveChangesAsync(CancellationToken? cancellationToken)

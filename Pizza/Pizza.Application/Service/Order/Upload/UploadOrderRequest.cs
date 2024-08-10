@@ -1,4 +1,4 @@
-﻿namespace Pizza.Application.Service.Order;
+﻿namespace Pizza.Application.Service;
 
 public record UploadOrderRequest(IFormFile File)
     : IRequest<Unit>;

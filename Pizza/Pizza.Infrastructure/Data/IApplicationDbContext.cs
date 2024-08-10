@@ -10,5 +10,5 @@ public interface IApplicationDbContext
     DbSet<PizzaType> PizzaTypes { get; }
 
     Task<int> SaveChangesAsync(CancellationToken? cancellationToken);
-    Task BulkInsertEntitiesAsync<T>(IEnumerable<T> entities) where T : class;
+    Task BulkInsertOrUpdateEntitiesAsync<TEntity>(IEnumerable<TEntity> entities) where TEntity : class;
 }
