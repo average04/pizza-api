@@ -44,16 +44,29 @@ public class PizzaController : BaseController
     }
 
     /// <summary>
-    /// Get pizza by sale
+    /// Get pizza summary by sale
     /// </summary>
-    /// <param name="sort"></param>
+    /// <param name="sort">Sort</param>
     /// <returns></returns>
     [HttpGet("pizza/sale")]
     public async Task<IActionResult> GetPizzaSale([FromQuery] SortBySale sort)
     {
-        //var request = new UploadPizzaTypeRequest(file);
-        //await Mediator.Send(request);
-        return Ok();
+        var request = new GetPizzaBySaleRequest(sort);
+        
+        return Ok(await Mediator.Send(request));
+    }
+
+    /// <summary>
+    /// Get pizza summary by quantity sold
+    /// </summary>
+    /// <param name="sort">Sort</param>
+    /// <returns></returns>
+    [HttpGet("pizza/quantity-sold")]
+    public async Task<IActionResult> GetPizzaQuantitySold([FromQuery] SortBySale sort)
+    {
+        var request = new GetPizzaByQuantitySoldRequest(sort);
+
+        return Ok(await Mediator.Send(request));
     }
 }
 

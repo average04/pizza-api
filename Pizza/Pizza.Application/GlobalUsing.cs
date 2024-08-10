@@ -11,8 +11,10 @@ global using CsvHelper;
 global using Pizza.API.Controllers;
 global using System.Globalization;
 global using ValidationException = FluentValidation.ValidationException;
+global using Microsoft.EntityFrameworkCore;
 
 global using Pizza.Application.Behavior;
 global using Pizza.Application.Exceptions;
 global using Pizza.Infrastructure.Data;
 global using Pizza.Domain;
+global using Pizza.Application.Enums;
