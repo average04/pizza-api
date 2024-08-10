@@ -22,6 +22,7 @@ public class MultipleUploadHandler : IRequestHandler<MultipleUploadRequest, Unit
         var orderHandler = new UploadOrderHandler(_dbContext);
         var orderDetailHandler = new UploadOrderDetailHandler(_dbContext);
 
+        // Hacky way to ensure the consecutive insert of data, important because of foreign key
         foreach (var file in request.Files)
         {
             await pizzaTypeHandler.Handle(new UploadPizzaTypeRequest(file), cancellationToken);
