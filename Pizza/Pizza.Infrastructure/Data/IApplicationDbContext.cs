@@ -1,4 +1,6 @@
-﻿namespace Pizza.Infrastructure.Data;
+﻿using Microsoft.EntityFrameworkCore.Internal;
+
+namespace Pizza.Infrastructure.Data;
 
 public interface IApplicationDbContext
 {
@@ -8,4 +10,5 @@ public interface IApplicationDbContext
     DbSet<PizzaType> PizzaTypes { get; }
 
     Task<int> SaveChangesAsync(CancellationToken? cancellationToken);
+    Task BulkInsertEntitiesAsync<T>(IEnumerable<T> entities) where T : class;
 }

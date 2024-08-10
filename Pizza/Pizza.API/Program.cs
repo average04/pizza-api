@@ -1,3 +1,5 @@
+using Pizza.Application;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Initialize environment variables
@@ -6,7 +8,11 @@ EnvironmentVariables.Initialize(builder.Configuration);
 // Add more services here!
 builder.Services
     .AddApiServices()
+    .AddApplicationServices()
     .AddInfrastructureServices(EnvironmentVariables.ConnectionString);
+
+builder.Host.UseSerilog((context, configuration) =>
+    configuration.ReadFrom.Configuration(context.Configuration));
 
 var app = builder.Build();
 

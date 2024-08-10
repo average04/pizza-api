@@ -2,6 +2,7 @@
 global using Pizza.Infrastructure;
 global using Pizza.Application.Exceptions;
 global using Pizza.API.ExceptionHandler;
+global using Pizza.API.Controllers.Base;
 
 global using System.Reflection;
 global using Microsoft.AspNetCore.Diagnostics.HealthChecks;

@@ -36,6 +36,8 @@ public static class ServiceExtension
                 ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
             });
 
+        app.UseSerilogRequestLogging();
+
         app.UseHttpsRedirection();
 
         app.UseAuthorization();
