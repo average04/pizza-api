@@ -1,4 +1,6 @@
-﻿namespace Pizza.API;
+﻿using System.Text.Json.Serialization;
+
+namespace Pizza.API;
 
 public static class ServiceExtension
 {
@@ -6,6 +8,15 @@ public static class ServiceExtension
     {
         services.AddControllers();
         services.AddEndpointsApiExplorer();
+
+        services.ConfigureHttpJsonOptions(options =>
+        {
+            options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
+        });
+        services.Configure<Microsoft.AspNetCore.Mvc.JsonOptions>(options =>
+        {
+            options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+        }); ;
 
         // Swagger
         services.AddSwaggerGen(options =>
@@ -15,7 +26,6 @@ public static class ServiceExtension
                 Version = "v1",
                 Title = "Pizza API",
             });
-
             var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
             options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
         });
