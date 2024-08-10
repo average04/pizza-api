@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
-
-namespace Pizza.API.ExceptionHandler;
+﻿namespace Pizza.API.ExceptionHandler;
 
 public class CustomExceptionHandler : IExceptionHandler
 {
@@ -45,6 +41,19 @@ public class CustomExceptionHandler : IExceptionHandler
         };
 
         problemDetails.Extensions.Add("traceId", context.TraceIdentifier);
+
+        if (exception is ValidationException validationException)
+        {
+            problemDetails.Extensions.Add("ValidationErrors", validationException.Errors);
+
+            Log.Error(exception, "Bad request information {RequestMethod} {RequestPath} {statusCode}", context.Request.Method, context.Request.Path, context.Response.StatusCode);
+        }
+        else if (exception is NotFoundException)
+            Log.Error(exception, "Not found request information {RequestMethod} {RequestPath} {statusCode}", context.Request.Method, context.Request.Path, context.Response.StatusCode);
+        else if (exception is BadRequestException)
+            Log.Error(exception, "Bad request information {RequestMethod} {RequestPath} {statusCode}", context.Request.Method, context.Request.Path, context.Response.StatusCode);
+        else
+            Log.Fatal(exception, "Unhandled exception information {RequestMethod} {RequestPath} {statusCode}", context.Request.Method, context.Request.Path, context.Response.StatusCode);
 
         await context.Response.WriteAsJsonAsync(problemDetails, cancellationToken: cancellationToken);
         return true;
