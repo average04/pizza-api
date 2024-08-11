@@ -27,5 +27,16 @@ public class OrderController : BaseController
         await Mediator.Send(request);
         return Ok();
     }
+
+    /// <summary>
+    /// Get order collection
+    /// </summary>
+    /// <param name="request">Get order request</param>
+    /// <returns></returns>
+    [HttpGet("order")]
+    public async Task<IActionResult> UploadOrderDetailCsv(GetOrderRequest request)
+    {
+        return Ok(await Mediator.Send(request));
+    }
 }
 
