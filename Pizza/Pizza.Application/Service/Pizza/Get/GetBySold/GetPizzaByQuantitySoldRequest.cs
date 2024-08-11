@@ -1,6 +1,6 @@
 ﻿namespace Pizza.Application.Service;
 
-public record GetPizzaByQuantitySoldRequest(SortBySale Sort)
+public record GetPizzaByQuantitySoldRequest(SortBySale Sort, DateOnly? DateFrom = null, DateOnly? DateTo = null)
     : IRequest<IEnumerable<GetPizzaResponse>>;
 
 public class GetPizzaByQuantitySoldRequestValidator : AbstractValidator<GetPizzaByQuantitySoldRequest>

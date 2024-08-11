@@ -12,6 +12,9 @@ public class GetPizzaBySaleHandler : IRequestHandler<GetPizzaBySaleRequest, IEnu
     {
         var query = await (from od in _dbContext.OrderDetails
                            join p in _dbContext.Pizzas on od.PizzaId equals p.Id
+                           join o in _dbContext.Orders on od.OrderId equals o.Id
+                           where (request.DateFrom != null && request.DateTo != null) &&
+                           (o.Date >= request.DateFrom && o.Date <= request.DateTo)
                            group new { p.Price, od.Quantity } by new { od.PizzaId, p.Price } into g
                            select new
                            {
