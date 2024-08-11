@@ -4,15 +4,6 @@
 
 This API is built using the Clean Architecture pattern and follows a code-first approach with Entity Framework Core (EF Core). It is designed to be modular, maintainable, and scalable. The project leverages several powerful libraries to enhance its functionality and performance.
 
-## Key Features
-
-- **Code-First Approach:** The database schema is generated and managed using Entity Framework Core, with migrations created based on the code-first model.
-- **Clean Architecture:** The API is structured to promote separation of concerns, making it easier to manage and scale the application.
-- **Serilog:** Provides structured logging throughout the application, enabling better traceability and debugging.
-- **MediatR:** Facilitates the implementation of the CQRS (Command Query Responsibility Segregation) pattern by mediating messages such as commands and queries between components.
-- **FluentValidation:** Ensures that incoming requests are validated consistently and clearly, improving the robustness of the API.
-- **EFCore.BulkExtensions:** Optimizes bulk operations within the database, enhancing performance when handling large datasets.
-
 ## Technologies & Libraries
 
 - **.NET 8**
@@ -45,3 +36,20 @@ The API is organized into several layers, adhering to Clean Architecture princip
    ```bash
    git clone https://github.com/your-repo/my-api.git
    cd my-api
+2. Restore dependencies:
+   ```bash
+   dotnet restore
+3. Set up the database:
+   - Update the connection string in appsettings.json.
+   - Apply migrations:
+      ```bash
+      dotnet ef database update
+4. Run the application:
+     ```bash
+      dotnet run
+
+### Logging
+Serilog is configured to log important events, errors, and diagnostics. Logs are written to the console, and you can easily configure it to write to files, databases, or other sinks.
+
+### Validation
+All incoming requests are validated using FluentValidation. Custom validators are created for each request model to ensure data integrity and provide clear error messages.
