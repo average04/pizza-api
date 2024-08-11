@@ -46,30 +46,22 @@ public class PizzaController : BaseController
     /// <summary>
     /// Get pizza summary by sale
     /// </summary>
-    /// <param name="sort_by">Sort by</param>
-    /// <param name="date_from">Date from</param>
-    /// <param name="date_to">Date to</param>
+    /// <param name="request">Get pizza by sale request</param>
     /// <returns></returns>
     [HttpGet("pizza/sale")]
-    public async Task<IActionResult> GetPizzaSale([FromQuery] SortBySale sort_by, DateOnly? date_from, DateOnly? date_to)
+    public async Task<IActionResult> GetPizzaSale([FromQuery] GetPizzaBySaleRequest request)
     {
-        var request = new GetPizzaBySaleRequest(sort_by, date_from, date_to);
-
         return Ok(await Mediator.Send(request));
     }
 
     /// <summary>
     /// Get pizza summary by quantity sold
     /// </summary>
-    /// <param name="sort_by">Sort by</param>
-    /// <param name="date_from">Date from</param>
-    /// <param name="date_to">Date to</param>
+    /// <param name="request">Get pizza by quantity sold request</param>
     /// <returns></returns>
     [HttpGet("pizza/quantity-sold")]
-    public async Task<IActionResult> GetPizzaQuantitySold([FromQuery] SortBySale sort_by, DateOnly? date_from, DateOnly? date_to)
+    public async Task<IActionResult> GetPizzaQuantitySold([FromQuery] GetPizzaByQuantitySoldRequest request)
     {
-        var request = new GetPizzaByQuantitySoldRequest(sort_by, date_from, date_to);
-
         return Ok(await Mediator.Send(request));
     }
 }

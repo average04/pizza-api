@@ -34,7 +34,7 @@ public class OrderController : BaseController
     /// <param name="request">Get order request</param>
     /// <returns></returns>
     [HttpGet("order")]
-    public async Task<IActionResult> UploadOrderDetailCsv(GetOrderRequest request)
+    public async Task<IActionResult> UploadOrderDetailCsv([FromQuery]GetOrderRequest request)
     {
         return Ok(await Mediator.Send(request));
     }

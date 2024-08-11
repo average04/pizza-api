@@ -18,3 +18,4 @@ global using Pizza.Application.Exceptions;
 global using Pizza.Infrastructure.Data;
 global using Pizza.Domain;
 global using Pizza.Application.Enums;
+global using Pizza.Application.Helper;
