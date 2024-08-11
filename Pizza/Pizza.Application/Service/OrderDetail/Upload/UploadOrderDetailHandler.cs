@@ -20,17 +20,8 @@ public class UploadOrderDetailHandler : IRequestHandler<UploadOrderDetailRequest
         using (var reader = new StreamReader(stream))
         using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
         {
-            try
-            {
-                csv.Context.RegisterClassMap<OrderDetailCsvMap>();
-                orderDetails = csv.GetRecords<OrderDetailCsv>().Select(o => o.ToDomainModel()).ToList();
-            }
-            catch (CsvHelperException)
-            {
-                // Ignore if cant read
-                return Unit.Value;
-            }
-  
+            csv.Context.RegisterClassMap<OrderDetailCsvMap>();
+            orderDetails = csv.GetRecords<OrderDetailCsv>().Select(o => o.ToDomainModel()).ToList();
         }
 
         await _dbContext.BulkInsertOrUpdateEntitiesAsync(orderDetails);

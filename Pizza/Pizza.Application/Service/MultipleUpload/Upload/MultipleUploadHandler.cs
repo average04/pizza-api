@@ -17,28 +17,35 @@ public class MultipleUploadHandler : IRequestHandler<MultipleUploadRequest, Unit
         {
             throw new BadRequestException("No file was uploaded.");
         }
-        var pizzaTypeHandler = new UploadPizzaTypeHandler(_dbContext);
-        var pizzaHandler = new UploadPizzaHandler(_dbContext);
-        var orderHandler = new UploadOrderHandler(_dbContext);
-        var orderDetailHandler = new UploadOrderDetailHandler(_dbContext);
 
-        // Hacky way to ensure the consecutive insert of data, important because of foreign key
-        foreach (var file in request.Files)
-        {
-            await pizzaTypeHandler.Handle(new UploadPizzaTypeRequest(file), cancellationToken);
-        }
-        foreach (var file in request.Files)
-        {
-            await pizzaHandler.Handle(new UploadPizzaRequest(file), cancellationToken);
-        }
-        foreach (var file in request.Files)
-        {
-            await orderHandler.Handle(new UploadOrderRequest(file), cancellationToken);
-        }
-        foreach (var file in request.Files)
-        {
-            await orderDetailHandler.Handle(new UploadOrderDetailRequest(file), cancellationToken);
-        }
+        await ProcessFilesAsync(request.Files, cancellationToken, file =>
+            new UploadPizzaTypeHandler(_dbContext).Handle(new UploadPizzaTypeRequest(file), cancellationToken));
+
+        await ProcessFilesAsync(request.Files, cancellationToken, file =>
+            new UploadPizzaHandler(_dbContext).Handle(new UploadPizzaRequest(file), cancellationToken));
+
+        await ProcessFilesAsync(request.Files, cancellationToken, file =>
+            new UploadOrderHandler(_dbContext).Handle(new UploadOrderRequest(file), cancellationToken));
+
+        await ProcessFilesAsync(request.Files, cancellationToken, file =>
+            new UploadOrderDetailHandler(_dbContext).Handle(new UploadOrderDetailRequest(file), cancellationToken));
+
         return Unit.Value;
+    }
+
+    private async Task ProcessFilesAsync(IEnumerable<IFormFile> files, CancellationToken cancellationToken, Func<IFormFile, Task> handler)
+    {
+        try
+        {
+            foreach (var file in files)
+            {
+                await handler(file);
+            }
+        }
+        catch 
+        {
+            // Ignore exception
+        }
+       
     }
 }

@@ -20,17 +20,8 @@ public class UploadPizzaHandler : IRequestHandler<UploadPizzaRequest, Unit>
         using (var reader = new StreamReader(stream))
         using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
         {
-            try
-            {
-                csv.Context.RegisterClassMap<PizzaCsvMap>();
-                pizza = csv.GetRecords<PizzaCsv>().Select(o => o.ToDomainModel()).ToList();
-            }
-            catch (CsvHelperException)
-            {
-                // Ignore if cant read
-                return Unit.Value;
-            }
-
+            csv.Context.RegisterClassMap<PizzaCsvMap>();
+            pizza = csv.GetRecords<PizzaCsv>().Select(o => o.ToDomainModel()).ToList();
         }
 
         await _dbContext.BulkInsertOrUpdateEntitiesAsync(pizza);
