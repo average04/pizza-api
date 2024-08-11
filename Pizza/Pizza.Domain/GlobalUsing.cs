@@ -1,0 +1,1 @@
+﻿global using Pizza.Domain.Abstraction.Entity;
